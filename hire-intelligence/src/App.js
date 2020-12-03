@@ -11,7 +11,7 @@ function App() {
       <Router>
         <Switch>
           <Route path="/">
-            <Header className="header" />
+            <Header />
             <Navbar />
             <Chart />
           </Route>
