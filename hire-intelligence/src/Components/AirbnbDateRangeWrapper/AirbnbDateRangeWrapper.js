@@ -1,12 +1,12 @@
 import React, { useState } from 'react'
-import './AirbnbDateRangeContainer.css'
+import './AirbnbDateRangeWrapper.css'
 import { DateRangePicker } from 'react-dates'
 import 'react-dates/initialize'
 import 'react-dates/lib/css/_datepicker.css'
 import moment from 'moment'
 import { useStateValue } from '../../StateProvider'
 
-function AirbnbDateRangeContainer() {
+function AirbnbDateRangeWrapper() {
   const [{ dateRange }, dispatch] = useStateValue()
 
   const [focus, setFocus] = useState(null)
@@ -52,4 +52,4 @@ function AirbnbDateRangeContainer() {
   )
 }
 
-export default AirbnbDateRangeContainer
+export default AirbnbDateRangeWrapper

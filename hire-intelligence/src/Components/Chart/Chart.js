@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import './Chart.css'
 import useData from '../../CustomHooks/useData'
-import ChartJsContainer from '../ChartJsContainer/ChartJsContainer'
+import ChartJsWrapper from '../ChartJsWrapper/ChartJsWrapper'
 import DateRange from '../DateRange/DateRange'
 
 function Chart() {
@@ -31,7 +31,7 @@ function Chart() {
     <div className="chart">
       <h1>Chart would be here</h1>
       <DateRange />
-      <ChartJsContainer
+      <ChartJsWrapper
         activeJobs={activeJobs}
         publishedDates={publishedDates}
         jobViews={jobViews}

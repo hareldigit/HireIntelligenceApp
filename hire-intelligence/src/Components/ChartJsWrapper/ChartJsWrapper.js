@@ -1,9 +1,9 @@
 import React, { useEffect, useRef, useState } from 'react'
-import './ChartJsContainer.css'
+import './ChartJsWrapper.css'
 import Chartjs from 'chart.js'
 import configureChartJs from './chartJsConfig'
 
-function ChartJsContainer({
+function ChartJsWrapper({
   activeJobs,
   publishedDates,
   jobViews,
@@ -16,19 +16,19 @@ function ChartJsContainer({
   rightAxisLabelString,
 }) {
   console.log(
-    '🚀 ~ file: ChartJsContainer.js ~ line 18 ~ publishedDates,',
+    '🚀 ~ file: ChartJsWrapper.js ~ line 18 ~ publishedDates,',
     publishedDates,
   )
   console.log(
-    '🚀 ~ file: ChartJsContainer.js ~ line 18 ~ activeJobs,',
+    '🚀 ~ file: ChartJsWrapper.js ~ line 18 ~ activeJobs,',
     activeJobs,
   )
-  const chartContainer = useRef(null)
+  const chartWrapper = useRef(null)
   const [chartInstance, setChartInstance] = useState(null)
   const [config, setConfig] = useState(null)
 
   useEffect(() => {
-    if (chartContainer && chartContainer.current) {
+    if (chartWrapper && chartWrapper.current) {
       let configChartJs = configureChartJs(
         chartTitle,
         activeJobsLabel,
@@ -43,10 +43,10 @@ function ChartJsContainer({
       applyChartJsData()
       initializeChartJs()
     }
-  }, [chartContainer, config, activeJobs])
+  }, [chartWrapper, config, activeJobs])
 
   const initializeChartJs = () => {
-    const newChartInstance = new Chartjs(chartContainer.current, config)
+    const newChartInstance = new Chartjs(chartWrapper.current, config)
     setChartInstance(newChartInstance)
   }
 
@@ -85,13 +85,13 @@ function ChartJsContainer({
   }
 
   return (
-    <div className="chartJsContainer">
+    <div className="chartJsWrapper">
       <canvas
-        ref={chartContainer}
+        ref={chartWrapper}
         style={({ height: 'auto' }, { width: '90vw' })}
       />
     </div>
   )
 }
 
-export default ChartJsContainer
+export default ChartJsWrapper

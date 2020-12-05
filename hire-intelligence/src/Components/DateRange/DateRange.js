@@ -1,10 +1,10 @@
 import React from 'react'
 import './DateRange.css'
-import AirbnbDateRangeContainer from '../AirbnbDateRangeContainer/AirbnbDateRangeContainer'
+import AirbnbDateRangeWrapper from '../AirbnbDateRangeWrapper/AirbnbDateRangeWrapper'
 function DateRange() {
   return (
     <div>
-      <AirbnbDateRangeContainer />
+      <AirbnbDateRangeWrapper />
     </div>
   )
 }
