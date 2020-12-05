@@ -1,4 +1,13 @@
-export const initialState = { data: [], user: null }
+import moment from 'moment'
+
+export const initialState = {
+  data: [],
+  user: null,
+  dateRange: {
+    start: moment(),
+    due: moment().add(2, 'months'),
+  },
+}
 
 const getUserNameFromEmail = (email) => {
   let userName = null
@@ -24,6 +33,15 @@ const reducer = (state, action) => {
       return {
         ...state,
         data: action.data,
+      }
+    }
+    case 'SET_DATE_RANGE': {
+      if (action.dateRange.start == null && action.dateRange.due == null) {
+        action.dateRange = initialState.dateRange
+      }
+      return {
+        ...state,
+        dateRange: action.dateRange,
       }
     }
     default: {

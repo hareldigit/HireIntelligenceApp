@@ -12,24 +12,42 @@ const parseDate = (date) => {
   }
   return result
 }
+const convertToNullableTimestamp = (momentDate) => {
+  let result = null
+  if (momentDate && momentDate.isValid()) {
+    const timestamp = momentDate.format('X')
+    result = parseFloat(timestamp)
+  }
+  return result
+}
 
 const sort = (result) => {
-  return result.sort(
-    (a, b) => parseDate(a.publishedAt) - parseDate(b.publishedAt),
-  )
+  return result.sort((a, b) => a.publishedAt - b.publishedAt)
 }
 
 function useData() {
-  const [{ data }, dispatch] = useStateValue()
+  const [{ data, dateRange }, dispatch] = useStateValue()
 
   useEffect(() => {
     const getData = async () => {
+      const start = convertToNullableTimestamp(dateRange?.start)
+      const due = convertToNullableTimestamp(dateRange?.due)
       const response = await axios({
-        method: 'get',
+        method: 'post',
         url: `/cumulativeViews/get`,
+        dataType: 'json',
+        contentType: 'application/json;',
+        data: {
+          Start: start,
+          Due: due,
+        },
       })
-      const result = response.data
+      let result = response.data
       if (result) {
+        result = result.map((r) => ({
+          ...r,
+          publishedAt: parseDate(r.publishedAt),
+        }))
         const sortedData = sort(result)
         dispatch({ type: 'SET_DATA', data: sortedData })
       } else {
@@ -37,7 +55,7 @@ function useData() {
       }
     }
     getData()
-  }, [])
+  }, [dateRange])
 
   return [data]
 }
