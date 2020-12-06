@@ -19,7 +19,7 @@ function ErrorMessage() {
         <Snackbar
           open={true}
           anchorOrigin={{ vertical: 'top', horizontal: 'left' }}
-          autoHideDuration={4000}
+          autoHideDuration={2000}
           onClose={handleClose}
         >
           <Alert
