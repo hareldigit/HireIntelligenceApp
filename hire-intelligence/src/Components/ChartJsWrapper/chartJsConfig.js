@@ -40,6 +40,8 @@ const defaultJsConfig = {
     labels: ['January', 'February', 'March', 'April'],
   },
   options: {
+    responsive: true,
+    maintainAspectRatio: false,
     title: {
       display: true,
       text: 'Cumulative job views vs. prediction',

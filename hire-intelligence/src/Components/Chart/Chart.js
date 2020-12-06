@@ -2,7 +2,6 @@ import React, { useEffect, useState } from 'react'
 import './Chart.css'
 import useData from '../../CustomHooks/useData'
 import ChartJsWrapper from '../ChartJsWrapper/ChartJsWrapper'
-import DateRange from '../DateRange/DateRange'
 
 function Chart() {
   const [data] = useData()
@@ -20,18 +19,12 @@ function Chart() {
     }
   }, [data])
 
-  useEffect(() => {
-    console.log(
-      '🚀 ~ file: Chart.js ~ line 27 ~ useEffect ~ publishedDates',
-      publishedDates,
-    )
-  }, [publishedDates])
+  useEffect(() => {}, [publishedDates])
 
   return (
     <div className="chart">
-      <h1>Chart would be here</h1>
-      <DateRange />
       <ChartJsWrapper
+        className="chart__chartWrapper"
         activeJobs={activeJobs}
         publishedDates={publishedDates}
         jobViews={jobViews}

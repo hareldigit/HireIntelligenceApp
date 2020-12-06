@@ -1,4 +1,9 @@
-.chart {
-  position: absolute;
-  top: 80px;
+.dashboard {
+  display: flex;
+  flex-direction: column;
+  padding: 50px;
+}
+
+.dashboard > {
+  flex: 1;
 }

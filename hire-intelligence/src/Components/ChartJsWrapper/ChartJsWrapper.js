@@ -15,14 +15,6 @@ function ChartJsWrapper({
   leftAxisLabelString,
   rightAxisLabelString,
 }) {
-  console.log(
-    '🚀 ~ file: ChartJsWrapper.js ~ line 18 ~ publishedDates,',
-    publishedDates,
-  )
-  console.log(
-    '🚀 ~ file: ChartJsWrapper.js ~ line 18 ~ activeJobs,',
-    activeJobs,
-  )
   const chartWrapper = useRef(null)
   const [chartInstance, setChartInstance] = useState(null)
   const [config, setConfig] = useState(null)
@@ -37,15 +29,14 @@ function ChartJsWrapper({
         leftAxisLabelString,
         rightAxisLabelString,
       )
-      console.log('before >>>', configChartJs)
       setConfig(configChartJs)
-      console.log('config>>>', config)
       applyChartJsData()
       initializeChartJs()
     }
   }, [chartWrapper, config, activeJobs])
 
   const initializeChartJs = () => {
+    chartInstance?.destroy()
     const newChartInstance = new Chartjs(chartWrapper.current, config)
     setChartInstance(newChartInstance)
   }
@@ -85,11 +76,8 @@ function ChartJsWrapper({
   }
 
   return (
-    <div className="chartJsWrapper">
-      <canvas
-        ref={chartWrapper}
-        style={({ height: 'auto' }, { width: '90vw' })}
-      />
+    <div className="chartJsWrapper" style={{ height: '65vh' }}>
+      <canvas ref={chartWrapper} />
     </div>
   )
 }

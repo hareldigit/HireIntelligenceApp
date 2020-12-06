@@ -12,6 +12,7 @@ const parseDate = (date) => {
   }
   return result
 }
+
 const convertToNullableTimestamp = (momentDate) => {
   let result = null
   if (momentDate && momentDate.isValid()) {
@@ -28,31 +29,59 @@ const sort = (result) => {
 function useData() {
   const [{ data, dateRange }, dispatch] = useStateValue()
 
+  const buildParameters = () => {
+    console.log('🚀 start >> ', dateRange?.start)
+    console.log('🚀 due>> ', dateRange?.due)
+    const start = convertToNullableTimestamp(dateRange?.start)
+    const due = convertToNullableTimestamp(dateRange?.due)
+    const parameters = {
+      Start: start,
+      Due: due,
+    }
+    return parameters
+  }
+
+  const prepareResult = (data) => {
+    let result = []
+    if (data) {
+      result = data.map((r) => ({
+        ...r,
+        publishedAt: parseDate(r.publishedAt),
+      }))
+      result = sort(result)
+    }
+    return result
+  }
+
+  const onSuccess = (data) => {
+    let result = prepareResult(data)
+    dispatch({ type: 'SET_DATA', data: result })
+    dispatch({ type: 'SUCCESS' })
+    dispatch({ type: 'SET_INDETERMINATE', indeterminate: false })
+  }
+
+  const onError = (error) => {
+    dispatch({ type: 'SET_INDETERMINATE', indeterminate: false })
+    dispatch({ type: 'SET_ERROR', error: error })
+    throw error.message
+  }
+
   useEffect(() => {
     const getData = async () => {
-      const start = convertToNullableTimestamp(dateRange?.start)
-      const due = convertToNullableTimestamp(dateRange?.due)
-      const response = await axios({
+      dispatch({ type: 'SET_INDETERMINATE', indeterminate: true })
+      await axios({
         method: 'post',
         url: `/cumulativeViews/get`,
         dataType: 'json',
         contentType: 'application/json;',
-        data: {
-          Start: start,
-          Due: due,
-        },
+        data: buildParameters(),
       })
-      let result = response.data
-      if (result) {
-        result = result.map((r) => ({
-          ...r,
-          publishedAt: parseDate(r.publishedAt),
-        }))
-        const sortedData = sort(result)
-        dispatch({ type: 'SET_DATA', data: sortedData })
-      } else {
-        dispatch({ type: 'SET_DATA', data: [] })
-      }
+        .catch((err) => {
+          onError(err)
+        })
+        .then((response) => {
+          onSuccess(response.data)
+        })
     }
     getData()
   }, [dateRange])

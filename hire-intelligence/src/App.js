@@ -1,9 +1,9 @@
 import './App.css'
 import Header from './Components/Header/Header'
-import Navbar from './Components/Navbar/Navbar'
-import Chart from './Components/Chart/Chart'
-
+import Dashboard from './Components/Dashboard/Dashboard'
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom'
+import ErrorMessage from './Components/ErrorMessage/ErrorMessage'
+import CircularIndeterminate from './Components/CircularIndeterminate/CircularIndeterminate'
 
 function App() {
   return (
@@ -12,8 +12,9 @@ function App() {
         <Switch>
           <Route path="/">
             <Header />
-            <Navbar />
-            <Chart />
+            <Dashboard />
+            <ErrorMessage />
+            <CircularIndeterminate />
           </Route>
         </Switch>
       </Router>

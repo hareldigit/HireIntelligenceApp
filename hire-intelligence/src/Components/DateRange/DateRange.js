@@ -3,7 +3,7 @@ import './DateRange.css'
 import AirbnbDateRangeWrapper from '../AirbnbDateRangeWrapper/AirbnbDateRangeWrapper'
 function DateRange() {
   return (
-    <div>
+    <div className="dateRange">
       <AirbnbDateRangeWrapper />
     </div>
   )
